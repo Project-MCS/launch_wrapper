@@ -4,7 +4,7 @@ apply plugin: "signing"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = "io.github.lxgaming"
+group = "com.arcbounds.launch"
 archivesBaseName = "launch_wrapper"
 version = "0.1"
 
@@ -46,8 +46,8 @@ dependencies {
 jar {
     manifest {
         attributes(
-            "Main-Class": "io.github.lxgaming.bukkitbootstrap.Main",
-            "MixinConfigs": "mixins.bukkitbootstrap.json"
+            "Main-Class": "com.arcbounds.launch.Main",
+            "MixinConfigs": "mixins.launch.json"
         )
     }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.lxgaming.bukkitbootstrap;
+package com.arcbounds.launch;
 
 import net.minecraft.launchwrapper.Launch;
 
@@ -24,13 +24,9 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

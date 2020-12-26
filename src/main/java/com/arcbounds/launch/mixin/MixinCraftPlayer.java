@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.lxgaming.bukkitbootstrap.mixin;
+package com.arcbounds.launch.mixin;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.server.v1_16_R3.EntityPlayer;

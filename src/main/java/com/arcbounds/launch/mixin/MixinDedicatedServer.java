@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.lxgaming.bukkitbootstrap.mixin;
+package com.arcbounds.launch.mixin;
 
 import net.minecraft.server.v1_16_R3.DedicatedServer;
 import org.apache.logging.log4j.LogManager;
