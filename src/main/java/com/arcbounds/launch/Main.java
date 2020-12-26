@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Initializing LaunchWrapper...");
-        List<String> arguments = Arrays.asList(args);
+        List<String> arguments = new LinkedList<>(Arrays.asList(args));
         loadServerJar(arguments);
         arguments.add("--tweakClass=org.spongepowered.asm.launch.BukkitBootstrap");
         Launch.main(arguments.toArray(new String[0]));
@@ -71,11 +71,5 @@ public class Main {
         }
         
         return Optional.empty();
-    }
-
-    
-    @SafeVarargs
-    public static <E> ArrayList<E> newArrayList(E... elements) {
-        return Stream.of(elements).collect(Collectors.toCollection(ArrayList::new));
     }
 }
