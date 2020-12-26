@@ -16,7 +16,6 @@
 
 package io.github.lxgaming.bukkitbootstrap;
 
-import io.github.lxgaming.bukkitbootstrap.util.Reference;
 import net.minecraft.launchwrapper.Launch;
 
 import java.io.File;
@@ -38,10 +37,6 @@ import java.util.stream.Stream;
 public class Main {
     
     public static void main(String[] args) {
-        printInformation(action -> {
-            System.out.println(action);
-        });
-        
         List<String> arguments = newArrayList(args);
         loadServerJar(arguments);
         arguments.add("--tweakClass=org.spongepowered.asm.launch.BukkitBootstrap");
@@ -86,18 +81,7 @@ public class Main {
         
         return Optional.empty();
     }
-    
-    public static void printInformation(Consumer<? super String> consumer) {
-        List<String> information = new ArrayList<String>();
-        information.add(Reference.APP_NAME + " v" + Reference.APP_VERSION);
-        information.add("Authors: " + Reference.AUTHORS);
-        information.add("Source: " + Reference.SOURCE);
-        information.add("Website: " + Reference.WEBSITE);
-        int length = Collections.max(information, Comparator.comparingInt(String::length)).length();
-        information.add(0, String.join("", Collections.nCopies(length, "-")));
-        information.add(String.join("", Collections.nCopies(length, "-")));
-        information.forEach(consumer);
-    }
+
     
     @SafeVarargs
     public static <E> ArrayList<E> newArrayList(E... elements) {

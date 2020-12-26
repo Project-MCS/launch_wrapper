@@ -16,7 +16,7 @@
 
 package io.github.lxgaming.bukkitbootstrap.mixin;
 
-import net.minecraft.server.v1_12_R1.DedicatedServer;
+import net.minecraft.server.v1_16_R3.DedicatedServer;
 import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.spongepowered.asm.mixin.Mixin;

@@ -5,18 +5,17 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = "io.github.lxgaming"
-archivesBaseName = "BukkitBootstrap"
-version = "1.0.1"
+archivesBaseName = "launch_wrapper"
+version = "0.1"
 
 configurations {
     provided {
         compile.extendsFrom(provided)
     }
-
-    build.dependsOn("signJar")
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     maven {
         name = "minecraft"
@@ -29,11 +28,13 @@ repositories {
 }
 
 dependencies {
-    provided(fileTree(dir: "./libs/", include: ["spigot-*.jar"]))
+    provided('org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT')
     provided("com.google.code.gson:gson:2.8.0")
     provided("com.google.guava:guava:21.0")
-    provided("commons-io:commons-io:2.5")
-    compile("net.minecraft:launchwrapper:1.12")
+    compile("commons-io:commons-io:2.5")
+    compile("net.minecraft:launchwrapper:1.12") {
+        exclude module: 'jopt-simple'
+    }
     provided("org.apache.logging.log4j:log4j-api:2.8.1")
     provided("org.apache.logging.log4j:log4j-core:2.8.1")
     annotationProcessor("org.apache.logging.log4j:log4j-core:2.8.1")
@@ -66,39 +67,13 @@ jar {
     exclude("log4j2.xml")
 }
 
+tasks.withType(org.gradle.jvm.tasks.Jar) {
+    String server = System.getenv("ARC_TEST_SERVER")
+    if (server != null)
+        destinationDir = file("$server/")
+}
+
 processResources {
     from("LICENSE")
     rename("LICENSE", "LICENSE-" + archivesBaseName)
-}
-
-task signJar {
-    doFirst {
-        if (!project.hasProperty("signing.keyStorePath") || !project.hasProperty("signing.secretKeyRingFile")) {
-            project.logger.warn("========== [WARNING] ==========")
-            project.logger.warn("")
-            project.logger.warn("   This build is not signed!   ")
-            project.logger.warn("")
-            project.logger.warn("========== [WARNING] ==========")
-            throw new StopExecutionException()
-        }
-    }
-
-    doLast {
-        configurations.archives.allArtifacts.files.each {
-            ant.signjar(
-                jar: it,
-                alias: project.property("signing.alias"),
-                storepass: project.property("signing.keyStorePassword"),
-                keystore: project.property("signing.keyStorePath"),
-                keypass: project.property("signing.keyStorePassword"),
-                preservelastmodified: project.property("signing.preserveLastModified"),
-                tsaurl: project.property("signing.timestampAuthority"),
-                digestalg: project.property("signing.digestAlgorithm")
-            )
-            project.logger.lifecycle("JAR Signed: " + it.name)
-
-            signing.sign(it)
-            project.logger.lifecycle("PGP Signed: " + it.name)
-        }
-    }
 }
