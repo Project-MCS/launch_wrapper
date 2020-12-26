@@ -33,8 +33,7 @@ import java.util.Set;
 @Mixin(value = CraftPlayer.class, remap = false)
 public class MixinCraftPlayer extends CraftHumanEntity {
     
-    @Shadow
-    @Final
+    @Shadow @Final
     private Set<String> channels;
     
     public MixinCraftPlayer(CraftServer server, EntityPlayer entity) {

@@ -17,27 +17,24 @@
 package com.arcbounds.launch;
 
 import net.minecraft.launchwrapper.Launch;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
-    
     public static void main(String[] args) {
-        List<String> arguments = newArrayList(args);
+        System.out.println("Initializing LaunchWrapper...");
+        List<String> arguments = Arrays.asList(args);
         loadServerJar(arguments);
         arguments.add("--tweakClass=org.spongepowered.asm.launch.BukkitBootstrap");
-        System.out.println("Initializing LaunchWrapper...");
-        Launch.main(arguments.toArray(new String[arguments.size()]));
+        Launch.main(arguments.toArray(new String[0]));
     }
     
     private static void loadServerJar(List<String> arguments) {
@@ -48,17 +45,15 @@ public class Main {
             }
             
             File serverJarFile = new File(serverJarPath.get());
-            if (serverJarFile == null || !serverJarFile.exists()) {
-                throw new IOException("Failed to find server jar");
-            }
+            if (!serverJarFile.exists()) throw new IOException("Failed to find server jar");
             
             URLClassLoader classLoader = (URLClassLoader) Main.class.getClassLoader();
             Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
             method.setAccessible(true);
             method.invoke(classLoader, serverJarFile.toURI().toURL());
-            System.out.println("Loaded Server Jar " + serverJarFile.getAbsolutePath());
+            LogManager.getLogger("LaunchWrapper").info("Loaded Server Jar " + serverJarFile.getAbsolutePath());
         } catch (Exception ex) {
-            System.out.println("Encountered an error processing BukkitBootstrap::loadServerJar");
+            System.err.println("Encountered an error processing BukkitBootstrap::loadServerJar");
             ex.printStackTrace();
             System.exit(1);
         }
