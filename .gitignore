@@ -5,6 +5,7 @@ dependency-reduced-pom.xml
 
 # Compiled
 /target
+/test
 bin
 build
 dist

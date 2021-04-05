@@ -20,13 +20,14 @@ package net.minecraftforge.fml.relauncher;
  * Tricks {@link org.spongepowered.asm.service.MixinService MixinService}.
  */
 public class FMLLaunchHandler {
-    
-    public static Side side() {
-        return Side.SERVER;
-    }
-    
-    public enum Side {
-        CLIENT,
-        SERVER;
-    }
+
+	public static Side side() {
+		return Side.SERVER;
+	}
+
+	public enum Side {
+		CLIENT,
+		SERVER;
+	}
+	
 }

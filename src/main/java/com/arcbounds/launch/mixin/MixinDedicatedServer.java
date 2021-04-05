@@ -26,10 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = DedicatedServer.class, remap = false)
 public class MixinDedicatedServer {
-    @Inject(method = "init", at = @At("RETURN"))
-    private void init(CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue()) {
-            LogManager.getLogger().info("Mixin injection... Ok ({}@{})", Bukkit.getServer().getName(), Bukkit.getServer().getVersion());
-        }
-    }
+	
+	@Inject(method = "init", at = @At("RETURN"))
+	private void init(CallbackInfoReturnable<Boolean> cir) {
+		if (cir.getReturnValue()) {
+			LogManager.getLogger().info("Mixin injection... Ok ({}@{})", Bukkit.getServer().getName(), Bukkit.getServer().getVersion());
+		}
+	}
+	
 }
